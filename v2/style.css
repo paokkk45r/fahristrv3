@@ -1,0 +1,136 @@
+body {
+    font-family: 'ip', sans-serif;
+    background-image: url('/assets/bg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0; /* Ganti dari 20px ke 0 */
+    color: #fff;
+}
+
+@font-face {
+    font-family: 'ip';
+    src: url('/assets/ip.OTF') format('opentype');
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* profile */
+.profile-card {
+    background-color: rgba(0, 0, 0, 0.6); /* transparan gelap */
+    color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 350px;
+    margin: 40px auto;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    margin-bottom: 15px;
+}
+
+.profile-card h2 {
+    margin: 10px 0 5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-card p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* profile samping */
+.profile-samping-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.profile-samping {
+  display: flex;             /* layout horizontal */
+  align-items: center;       /* rata tengah vertikal */
+  border: 1px solid #fff;    /* border putih */
+  border-radius: 10px;
+  padding: 15px 20px;
+  background-color: rgba(0,0,0,0.6);
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.image-samping {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;        /* bulat */
+  object-fit: cover;
+  margin-right: 20px;
+  flex-shrink: 0;            /* jangan mengecil */
+  border: 2px solid #fff;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;    /* susun vertikal */
+}
+
+.text-container h2 {
+  margin: 0 0 8px 0;         /* jarak bawah */
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.text-container p {
+  margin: 0;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.whatsapp-help {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+  transition: background-color 0.2s;
+}
+
+.whatsapp-help:hover {
+  background-color: #1ebc59;
+}
+
+.whatsapp-help img {
+  width: 20px;
+  height: 20px;
+}

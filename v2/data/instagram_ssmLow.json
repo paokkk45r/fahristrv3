@@ -1,0 +1,92 @@
+[
+  {
+    "icon": "/assets/ig.jpeg",
+    "judul": "100 Followers IG",
+    "harga": "5.000",
+    "id": "3629"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "200 Followers IG",
+    "harga": "10.000",
+    "id": "3629"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "300 Followers IG",
+    "harga": "15.000",
+    "id": "3629"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "400 Followers IG",
+    "harga": "20.000",
+    "id": "3629"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "500 Followers IG",
+    "harga": "25.000",
+    "id": "3629"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "1000 Like IG",
+    "harga": "5.000",
+    "id": "3750"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "2000 Like IG",
+    "harga": "10.000",
+    "id": "3750"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "3000 Like IG",
+    "harga": "15.000",
+    "id": "3750"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "4000 Like IG",
+    "harga": "20.000",
+    "id": "3750"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "5000 Like IG",
+    "harga": "25.000",
+    "id": "3750"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "1000 View IG",
+    "harga": "1.000",
+    "id": "3560"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "2000 View IG",
+    "harga": "2.000",
+    "id": "3560"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "3000 View IG",
+    "harga": "3.000",
+    "id": "3560"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "4000 View IG",
+    "harga": "4.000",
+    "id": "3560"
+  },
+    {
+    "icon": "/assets/ig.jpeg",
+    "judul": "5000 View IG",
+    "harga": "5.000",
+    "id": "3560"
+  }
+]

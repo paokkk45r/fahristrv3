@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahri Store25</title>
+    <link rel="stylesheet" href="/v2/nks.css">
+</head>
+<body>
+    
+    <div class="header">
+        <h3>NKS - Nomer Kosong</h3>
+    </div>
+
+<div class="dropdown" style="text-align: center; margin-top: 20px;">
+  <select id="platform-selector" onchange="updateMenuOptions()">
+    <option value="">-- Pilih Nomor --</option>
+    <option value="indo">Indonesia (+62)</option>
+    <option value="malay">Malaysia (+60)</option>
+  </select>
+</div>
+
+<div id="nks-container" class="nks-container"></div>
+
+<!-- Modal Pembayaran -->
+<div id="payment-modal">
+  <div class="modal-content">
+    <h2>Silahkan scan untuk melakukan pembayaran</h2>
+    <p>QRIS INI ALL PAYMENT <br>(KLIK GAMBAR QRIS JIKA KEKECILAN)</p>
+    <p>JIKA SUDAH TF, MOHON DIWAJIBKAN KLIK (KIRIM BUKTI TF)</p>
+    <img src="/assets/qr.png" alt="QR Code" id="qr-code" style="cursor: zoom-in; width: 200px;" onclick="zoomQR()">
+    <div class="modal-buttons">
+      <button onclick="kirimBukti()">Kirim Bukti TF</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+              document.getElementById('qr-code').addEventListener('click', function () {
+    Swal.fire({
+      title: 'Scan QR Code',
+      imageUrl: this.src,
+      imageWidth: 300,
+      imageHeight: 450,
+      imageAlt: 'QR Code',
+      confirmButtonText: 'Tutup'
+    });
+  })
+
+let selectedItem = {};
+
+function updateMenuOptions() {
+  const selectedValue = document.getElementById('platform-selector').value;
+  if (!selectedValue) {
+    document.getElementById('nks-container').innerHTML = '';
+    return;
+  }
+
+  const fileName = `/v2/data/${selectedValue}Nks.json`; // Contoh: indoNks.json
+
+  fetch(fileName)
+    .then(response => {
+      if (!response.ok) throw new Error('File tidak ditemukan');
+      return response.json();
+    })
+    .then(data => {
+      const container = document.getElementById('nks-container');
+      container.innerHTML = '';
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.icon}" alt="icon">
+          <h3>${item.judul}</h3>
+          <p>Rp ${item.harga}</p>
+          <button onclick="openModal('${item.judul}', '${item.harga}')">Beli</button>
+        `;
+        container.appendChild(card);
+      });
+    })
+    .catch(error => {
+      document.getElementById('nks-container').innerHTML = `<p style="color:red">Gagal memuat data: ${error.message}</p>`;
+    });
+}
+
+function openModal(judul, harga) {
+  selectedItem = { judul, harga };
+  document.getElementById('payment-modal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('payment-modal').style.display = 'none';
+}
+
+function kirimBukti() {
+  const noAdmin = '6289601314023';
+  const pesan = encodeURIComponent(
+    `Halo admin, saya sudah transfer untuk pesanan berikut:\n\nProduk: ${selectedItem.judul}\nHarga: Rp ${selectedItem.harga}\n\nBerikut bukti TF-nya.`
+  );
+  const url = `https://wa.me/${noAdmin}?text=${pesan}`;
+  window.open(url, '_blank');
+  closeModal();
+}
+    </script>
+
+</body>
+</html>

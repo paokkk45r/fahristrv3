@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahri Store25</title>
+  <link rel="stylesheet" href="/v2/ssm.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <div class="header">
+    <h3>SSM - Suntik Sosmed</h3>
+  </div>
+
+  <div class="dropdown" style="text-align: center;">
+    <select id="platform-selector" onchange="updateMenuOptions()">
+      <option value="">-- Pilih Platform --</option>
+      <option value="tiktok">TikTok</option>
+      <option value="instagram">Instagram</option>
+    </select>
+
+    <select id="speed-selector" onchange="loadSSMData()" disabled>
+      <option value="">-- Pilih Jenis Proses --</option>
+    </select>
+  </div>
+
+  <div id="ssm-container"></div>
+
+  <!-- Modal Pembayaran -->
+  <div id="payment-modal">
+    <div class="modal-content">
+      <h2>Silahkan scan untuk melakukan pembayaran</h2>
+      <p>QRISS INI ALL PAYMENT <br>
+        (KLIK GAMBAR QRIS JIKA KEKECILAN)</p>
+      <p>JIKA SUDAH TF, MOHON DIWAJIBKAN KLIK (KIRIM BUKTI TF)</p>
+      <!-- Tambahkan ini di HTML -->
+<img src="/assets/qr.png" alt="QR Code" id="qr-code" style="cursor: zoom-in; width: 200px;">
+      <div class="modal-buttons">
+        <button onclick="kirimBukti()">Kirim Bukti TF</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+      document.getElementById('qr-code').addEventListener('click', function () {
+    Swal.fire({
+      title: 'Scan QR Code',
+      imageUrl: this.src,
+      imageWidth: 300,
+      imageHeight: 450,
+      imageAlt: 'QR Code',
+      confirmButtonText: 'Tutup'
+    });
+  });
+
+    // styling tambahan tanpa override onchange/function existing
+document.querySelectorAll('select').forEach(sel => {
+  // tambahkan class saat fokus, hapus saat blur (bisa buat styling)
+  sel.addEventListener('focus', () => sel.classList.add('focused'));
+  sel.addEventListener('blur', () => sel.classList.remove('focused'));
+});
+
+
+function updateMenuOptions() {
+  const platform = document.getElementById('platform-selector').value;
+  const speedSelect = document.getElementById('speed-selector');
+  const container = document.getElementById('ssm-container');
+
+  // Reset dropdown dan konten
+  container.innerHTML = '';
+  speedSelect.disabled = false;
+  speedSelect.innerHTML = `
+    <option value="">-- Pilih Jenis Proses --</option>
+    <option value="${platform}_ssmLow">Low Proses (1-5 Hari)</option>
+    <option value="${platform}_ssmFast">Fast Proses (1-2 Hari)</option>
+  `;
+}
+
+function loadSSMData() {
+  const file = document.getElementById('speed-selector').value;
+  const container = document.getElementById('ssm-container');
+  container.innerHTML = ''; // Pastikan kosong sebelum isi baru
+
+  if (!file) return;
+
+  fetch(`/v2/data/${file}.json`)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.icon}" alt="icon">
+          <p>ID Pesanan <i class="bi bi-person-add"></i> ${item.id}</p>
+          <h3>${item.judul}</h3>
+          <p>Rp ${item.harga}</p>
+          <button onclick="openModal('${item.id}', '${item.judul}', '${item.harga}')">Buy</button>
+        `;
+        container.appendChild(card);
+      });
+    })
+    .catch(error => {
+      console.error('Gagal memuat data:', error);
+    });
+}
+
+    let selectedItem = {};
+
+    function openModal(id, judul, harga) {
+  selectedItem = { id, judul, harga };
+  document.getElementById('payment-modal').style.display = 'block';
+  }
+
+    function closeModal() {
+      document.getElementById('payment-modal').style.display = 'none';
+    }
+
+function kirimBukti() {
+  const noAdmin = '6289601314023';
+  const pesan = encodeURIComponent(
+    `Halo admin, saya sudah transfer untuk pesanan berikut:\n\nID: ${selectedItem.id}\nProduk: ${selectedItem.judul}\nHarga: Rp ${selectedItem.harga}\n\nBerikut bukti TF-nya.`
+  );
+  const url = `https://wa.me/${noAdmin}?text=${pesan}`;
+  window.open(url, '_blank');
+  closeModal();
+}
+  </script>
+
+</body>
+</html>
